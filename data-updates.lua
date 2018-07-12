@@ -1,9 +1,8 @@
-local ModName = "mod_example"
-local areas = require 'areas' or {}
+local data = require 'areas' or {}
 
-for name,data in pairs(areas) do if data.bp:len() > 0 then
+for name,area in pairs(data.area) do if area.bp:len() > 0 then
 
-	ZADV.Data[ModName] = ZADV.Data[ModName] or {}
-	ZADV.Data[ModName][name] = data
+	ZADV.Data[data.ModName] = ZADV.Data[data.ModName] or {}
+	ZADV.Data[data.ModName][name] = area
 	
 end end

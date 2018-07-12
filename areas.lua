@@ -1,25 +1,27 @@
 
-local areas = {}
+local ret = { ModName = "mod_example", area={} }
 
-areas['simple assemble belts'] = {
+ret.area['example assembler'] = {
 
-	-- Area blueprint string.
-	-- Areas larger than 64x64 will be ignored (temporarily)
+	-- Area blueprint string. left it "" and area will be ignored
+	-- Areas larger than 64x64 will be ignored
 	bp = "0eNqVlW1vgyAQx7/LvYZEsA/Wr7IsC9pbe4mgAbqtafzuw3Zruw4tvjJI+N397/EEVXPAzpLxUJ6A6tY4KF9O4GhnVDP888cOoQTyqIGBUXo4KedQVw2ZHdeq3pNBLqFnQGaLX1CKnj1FeKuM61rreYWNv3ss+1cGaDx5wosz58PxzRx0hTbQxxgMutaFZ60ZrAYUlwyOw6cfHHrAyNmYPDi5JYv15U5GoPkV+q6c52QcWh8u/jGzX8/+IFcR5OKKdB6x4fUeXcxJMaF1maw1S5a6So+fSIauk6EiGsBFhFnMZebPmZvUPP/UTvYcKbLZBSliuRa3/tC4pYPm2AS7lmretQ2OpTyLsmSyTjFByeeVcFzWItWV9IgvU5FT4m59QLY1Y9omMza76kWCuGJ6Wo8V1dBQAUzdVdEOleWf+5A4iNnZzLQj/pt53AVhAZyXRXm3nhh8oHWXKVmspSzEJluHYfcNDAs/Rg=="
 	
 	
 	-- blueprint options
 	,probability = 50	-- 5%				-- [default: 100] from 1 to 1000 (*0.1%)
-	,remoteness_min = 10					-- [default: 10] minimal distance in chunks (32x32) from starting point
-	,remoteness_max = 20					-- [default: 0] maximal distance in chunks (32x32) from starting point, 0 for unlimited
+	,remoteness_min = 10					-- [default: 10] minimal distance in chunks (32x32) from starting point (starting area settings + minimal remotness)
+	,remoteness_max = 20					-- [default: 0] maximal distance in chunks (32x32) from starting edges, 0 for unlimited (starting area settings + maximal remotness)
+	,only_once = true						-- [default: false] if true, only one copy of this area allowed
+	,max_copies = 0							-- [default: 0] negative or zero for unlimited copies, if set to 1 - same as [only_once = true]
 	,ignore_technologies = true				-- [default: true] If false, only if all necessary technologies is learned - area can be placed
 	,force = "neutral"						-- [default: "neutral"] "player", "neutral", "enemy" or custom name to use/create new Force to use for the building
 	,random_direction = true				-- [default: false] When true, area will be randomly rotated to one of four direction (north, east, south, west) each time when placed on surface
 	,force_build = true						-- [default: true] When true, anything that can be built is else nothing is built if any one thing can't be built. When false, all additional options for entities belw will be ignored
 	,finalize_build = true					-- [default: true] Build entities; place ghosts if "false"
 	,force_reveal = true					-- [default: false] If "true" area will be revealed after build
-	,ignore_water = false					-- [default: false] If "true" ignore water and place entities above them (entities may be unreachable)
-	,ignore_all_collision = false			-- [default: false] If "truth" ignores all possible collisions and places entities on top of them (performance lags while placing area)
+	,ignore_water = false					-- [default: false] (currently disabled) If "true" ignore water and place entities above them (entities may be unreachable)
+	,ignore_all_collision = false			-- [default: false] (currently disabled) If "truth" ignores all possible collisions and places entities on top of them (performance lags while placing area)
 	
 	
 	-- additional options will be applied
@@ -77,5 +79,5 @@ areas['simple assemble belts'] = {
 	
 }
 
-return areas
+return ret
 	
