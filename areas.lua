@@ -4,10 +4,7 @@ local ret = { ModName = "mod_example", area={} }
 -- table of names replacements to add support non vanila items for all areas
 -- @syntax: "original" = "new name"
 -- [ !! currently not implemented !! ]
-ret.replacements = {
-	 'raw_wood' = 'raw_wood'
-	,'coal' = 'coal'
-}
+ret.replacements = {}
 
 
 --
