@@ -1,6 +1,19 @@
 
 local ret = { ModName = "mod_example", area={} }
 
+-- table of names replacements to add support non vanila items for all areas
+-- @syntax: "original" = "new name"
+-- [ !! currently not implemented !! ]
+ret.replacements = {
+	 'raw_wood' = 'raw_wood'
+	,'coal' = 'coal'
+}
+
+
+--
+--	NEW AREAS
+--
+
 ret.area['example assembler'] = {
 
 	-- Area blueprint string. left it "" and area will be ignored
@@ -27,6 +40,7 @@ ret.area['example assembler'] = {
 	-- additional options will be applied
 	-- for each entity if allowed to do so
 	-- comment/delete line to exclude
+	,dangerous = false						-- [default: false] If true, players can get harmed or even been killed
 	,active = true							-- [default: true] Deactivating an entity will stop all its operations (inserters will stop working)
 	,minable = false						-- [default: true] Not minable entities can still be destroyed
 	,destructible = false					-- [default: true] When the entity is not destructible it can't be damaged
@@ -37,14 +51,20 @@ ret.area['example assembler'] = {
 	,rotatable = false						-- [default: true] When entity is not to be rotatable (inserter, transport belt etc), it can't be rotated by player using the R key
 	
 	
+	-- custom data to pass it into functions
+	,userdata = {}
+
 	--- Script would be running for each entity in new area
 	-- @param rndroll - random number 1-1000
 	-- @param game - game script root
 	-- @param surface - working surface
 	-- @param force - what build the area
+	-- @param area - area where blueprint was builded
+	-- @param center - center of the area where blueprint was builded
 	-- @param entity - builded entity reference
 	-- @param namelist - "false" in none; array of entity names in this blueprint
-	,ScriptForEach = function(rndroll, game, surface, force, entity, namelist)
+	-- @param locstore - temporal storage fo data, exist for all iteration while area generated
+	,ScriptForEach = function(rndroll, game, surface, force, area, center, entity, namelist, locstore, userdata)
 		if entity.prototype.name == "steel-chest" then
 			entity.get_inventory(defines.inventory.chest).insert( {name="iron-plate", count=5000} )
 		elseif entity.prototype.name == "iron-chest" then
@@ -61,7 +81,7 @@ ret.area['example assembler'] = {
 	-- @param center - center of the area where blueprint was builded
 	-- @param namelist - "false" in none; array of entity names in this blueprint
 	-- @param entitylist - "false" in none; array of entities themselfs builded (if so) on surface ( surface.find_entities_filtered{area=area, name=newarea.names}; )
-	,ScriptForAll = function(rndroll, game, surface, force, area, center, namelist, entitylist)
+	,ScriptForAll = function(rndroll, game, surface, force, area, center, namelist, entitylist, userdata)
 		local ent = surface.create_entity{name="hidden-electric-energy-interface", position=center, force='neutral'}
 		ent.electric_buffer_size = 8283	--
 		ent.power_production = 8283		-- Prevent to use it as free energy source
@@ -76,6 +96,12 @@ ret.area['example assembler'] = {
 		{ msg = "Moar little belts...", color = {r=0.30, g=0.70, b=1, a=0.8} },
 		{ msg = "One more belts?..", color = {r=0.30, g=0.70, b=1, a=0.8} }
 	}
+	
+	
+	-- if this area is update for existed area (for example: add new mod support for old areas)
+	-- data in pointed area will be replaced or not if fields is incorrect
+	-- you must reproduce all old fields to replace 'em with new data (for now)
+	,update_for = { mod="", area="" }
 	
 }
 
