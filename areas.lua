@@ -9,12 +9,6 @@ share it on forum: https://forums.factorio.com/viewtopic.php?f=190&t=61538
 
 local ret = { ModName = "mod_example", area={} }
 
--- table of names replacements to add support non vanila items for all areas
--- @syntax: "original" = "new name"
--- Currently not implemented, use "update_for" option
-ret.replacements = {}
-
-
 --
 --	NEW AREAS
 --
