@@ -1,10 +1,8 @@
 --[[
 
-A little message for you, my dear creator. =)
-If you find this mod useful, enough interesting or at least
-possible to make Factorio more attractable,and you have new
-ideas for expansion - please,share it with me and community on
-forum: https://forums.factorio.com/viewtopic.php?f=190&t=61538
+If you find this mod useful, enough interesting or at least possible to make
+Factorio more attractable, and you have new ideas for expansion, please,
+share it on forum: https://forums.factorio.com/viewtopic.php?f=190&t=61538
 
 ]]--
 
@@ -35,7 +33,7 @@ ret.area['example assembler'] = {
 	,only_once = true						-- [default: false]		If true, only one copy of this area allowed
 	,max_copies = 0							-- [default: 0]			Negative or zero for unlimited copies, if set to 1 - same as [only_once = true]
 	,ignore_technologies = true				-- [default: true]		If false, only if all necessary technologies is learned - area can be placed
-	,force = "neutral"						-- [default: "neutral"]	"player", "neutral", "enemy" or custom name to use/create new Force to use for the building
+	,force = "neutral"						-- [default: "neutral"]	"player", "neutral", "enemy" or custom name to use/create new Force and use it for the building
 	,random_direction = true				-- [default: false]		When true, area will be randomly rotated to one of four direction (north, east, south, west) each time when placed on surface
 	,force_build = true						-- [default: true]		When true, anything that can be built is else nothing is built if any one thing can't be built. When false, all additional options for entities belw will be ignored
 	,finalize_build = true					-- [default: true]		Build entities; place ghosts if "false"
