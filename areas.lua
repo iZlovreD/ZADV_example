@@ -21,14 +21,15 @@ ret.area['example assembler'] = {
 	
 	
 	-- blueprint options
-	,probability = 50	-- 5%				-- [default: 100]		From 1 to 1000 (*0.1%)
+	,probability = 100	-- 10%				-- [default: 100]		From 1 to 1000 (*0.1%)
 	,remoteness_min = 10					-- [default: 10]		Minimal distance in chunks (32x32) from starting point (starting area settings + minimal remotness)
-	,remoteness_max = 20					-- [default: 0]			Maximal distance in chunks (32x32) from starting edges, 0 for unlimited (starting area settings + maximal remotness)
-	,only_once = true						-- [default: false]		If true, only one copy of this area allowed
+	,remoteness_max = 0						-- [default: 0]			Maximal distance in chunks (32x32) from starting edges, 0 for unlimited (starting area settings + maximal remotness)
+	,only_once = false						-- [default: false]		If true, only one copy of this area allowed
 	,max_copies = 0							-- [default: 0]			Negative or zero for unlimited copies, if set to 1 - same as [only_once = true]
 	,ignore_technologies = true				-- [default: true]		If false, only if all necessary technologies is learned - area can be placed
 	,force = "neutral"						-- [default: "neutral"]	"player", "neutral", "enemy" or custom name to use/create new Force and use it for the building
-	,random_direction = true				-- [default: false]		When true, area will be randomly rotated to one of four direction (north, east, south, west) each time when placed on surface
+	,unique = false							-- [default: false]		If true, and if force is "player" then only one copy of this area allowed per each players forces
+	,random_direction = false				-- [default: false]		When true, area will be randomly rotated to one of four direction (north, east, south, west) each time when placed on surface
 	,force_build = true						-- [default: true]		When true, anything that can be built is else nothing is built if any one thing can't be built. When false, all additional options for entities belw will be ignored
 	,finalize_build = true					-- [default: true]		Build entities; place ghosts if "false"
 	,force_reveal = true					-- [default: false]		If "true" area will be revealed after build
@@ -51,7 +52,7 @@ ret.area['example assembler'] = {
 	
 	
 	-- custom data to pass it into functions
-	,userdata = {}
+	,areadata = {}
 
 	--- Script would be running for each entity in new area
 	-- @param rndroll - random number 1-1000
@@ -63,7 +64,8 @@ ret.area['example assembler'] = {
 	-- @param entity - builded entity reference
 	-- @param namelist - "false" in none; array of entity names in this blueprint
 	-- @param locstore - temporal storage fo data, exist for all iteration while area generated
-	,ScriptForEach = function(rndroll, game, surface, force, area, center, entity, namelist, locstore, userdata)
+	-- @param areadata - acces to custom data
+	,ScriptForEach = function(rndroll, game, surface, force, area, center, entity, namelist, locstore, areadata)
 		if entity.prototype.name == "steel-chest" then
 			entity.get_inventory(defines.inventory.chest).insert( {name="iron-plate", count=5000} )
 		elseif entity.prototype.name == "iron-chest" then
@@ -80,12 +82,49 @@ ret.area['example assembler'] = {
 	-- @param center - center of the area where blueprint was builded
 	-- @param namelist - "false" in none; array of entity names in this blueprint
 	-- @param entitylist - "false" in none; array of entities themselfs builded (if so) on surface ( surface.find_entities_filtered{area=area, name=newarea.names}; )
-	,ScriptForAll = function(rndroll, game, surface, force, area, center, namelist, entitylist, userdata)
+	-- @param areadata - acces to custom data
+	,ScriptForAll = function(rndroll, game, surface, force, area, center, namelist, entitylist, areadata)
 		local ent = surface.create_entity{name="hidden-electric-energy-interface", position=center, force=force}
 		ent.electric_buffer_size = 8283	--
 		ent.power_production = 8283		-- Prevent to use it as free energy source
 		ent.power_usage = 0				--
 	end
+	
+	--- Table for event handlers
+	,Events = {}
+	
+	--[[--
+		
+		[ EVENTS ]
+		
+		If you planning to use events you must store your functions into Events table.
+		
+		Example:
+		-----------------------------------------------------------------------------------------------------------------
+		,Events = {
+			[defines.events.on_tick] = function(event, areadata, game) game.print(areadata.message) end,
+			[defines.events.on_player_died] = function(event, areadata, game) game.players[event.player_index].print("Ha! Looser!") end
+		}
+		-----------------------------------------------------------------------------------------------------------------
+		
+		Event data passed into the handler as first parameter, area data as second and global game variable as third.
+		
+		
+		If you want to disable event in some conditions  - add "areadata.disabled = true"
+		
+		Example:
+		-----------------------------------------------------------------------------------------------------------------
+		,Events = {
+			[defines.events.on_tick] = function(event, areadata, game)
+				game.print("Hello world!")
+				areadata.disabled = true
+			end
+		}
+		-----------------------------------------------------------------------------------------------------------------
+		
+	--]]--
+	
+	
 	
 	-- An array of messages to be printed in the chat after the creation of the area.
 	-- One will be selected randomly. Message ignored if empty.
