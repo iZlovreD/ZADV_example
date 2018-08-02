@@ -138,8 +138,8 @@ ret.area['example assembler'] = {
 	
 	-- if this area is update for existed area (for example: add new mod support for old areas)
 	-- data in pointed area will be replaced or not if fields is incorrect
-	-- you must reproduce all old fields to replace 'em with new data (for now)
-	,update_for = { mod="", area="" }
+	-- you may left only those data, which must be replaced
+	,update_for = { modname="", areaname="" }
 	
 }
 

@@ -1,13 +1,11 @@
 {
 	"name": "ZAdv_example",
 	"order": "z-10",
-	"version": "1.1.0",
+	"version": "1.1.2",
 	"title": "[Z] Adventure expansion (example)",
 	"factorio_version": "0.16",
 	"author": "ZlovreD",
 	"contact": "Discussion page on mods.factorio.com",
 	"description": "Makes adventure more unpredictable.",
-	"dependencies": [ "base >= 0.16"
-		,"ZAdventure >= 1.1.0"
-	]
+	"dependencies": [ "base >= 0.16" ,"ZAdventure >= 1.1.7" ]
 }

@@ -1,5 +1,5 @@
 local data = require 'areas' or {}
-debug(2, "Requesting [%s] areas", data.ModName)
+if ZADV.debug >= 1 then log("[[ZADV]] ".. format("Requesting [%s] areas", data.ModName)) end
 
 
 ZADV.Data[data.ModName] = ZADV.Data[data.ModName] or {}
