@@ -26,6 +26,7 @@ ret.area['example assembler'] = {
 	,remoteness_max = 0						-- [default: 0]			Maximal distance in chunks (32x32) from starting edges, 0 for unlimited (starting area settings + maximal remotness)
 	,only_once = false						-- [default: false]		If true, only one copy of this area allowed
 	,max_copies = 0							-- [default: 0]			Negative or zero for unlimited copies, if set to 1 - same as [only_once = true]
+	,progressive_remoteness = 5				-- [default: 0]			If not zero, minimal remoteness increased by specified value every time when area placed.
 	,ignore_technologies = true				-- [default: true]		If false, only if all necessary technologies is learned - area can be placed
 	,force = "neutral"						-- [default: "neutral"]	"player", "neutral", "enemy" or custom name to use/create new Force and use it for the building
 	,unique = false							-- [default: false]		If true, and if force is "player" then only one copy of this area allowed per each players forces
@@ -33,6 +34,7 @@ ret.area['example assembler'] = {
 	,force_build = true						-- [default: true]		When true, anything that can be built is else nothing is built if any one thing can't be built. When false, all additional options for entities belw will be ignored
 	,finalize_build = true					-- [default: true]		Build entities; place ghosts if "false"
 	,force_reveal = true					-- [default: false]		If "true" area will be revealed after build
+	,only_freeplay = false					-- [default: false]		If "true" area will restricted for any scenarios except freeplay
 	,ignore_water = false					-- [default: false]		(currently disabled) If "true" ignore water and place entities above them (entities may be unreachable)
 	,ignore_all_collision = false			-- [default: false]		(currently disabled) If "true" ignores all possible collisions and places entities on top of them (performance lags while placing area)
 	
