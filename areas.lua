@@ -16,7 +16,7 @@ local ret = { ModName = "mod_example", area={} }
 ret.area['example assembler'] = {
 
 	-- Area blueprint string. left it "" and area will be ignored
-	-- Areas larger than 64x64 will be ignored
+	-- Areas larger than 256x256 will be ignored
 	bp = "0eNqVlW1vgyAQx7/LvYZEsA/Wr7IsC9pbe4mgAbqtafzuw3Zruw4tvjJI+N397/EEVXPAzpLxUJ6A6tY4KF9O4GhnVDP888cOoQTyqIGBUXo4KedQVw2ZHdeq3pNBLqFnQGaLX1CKnj1FeKuM61rreYWNv3ss+1cGaDx5wosz58PxzRx0hTbQxxgMutaFZ60ZrAYUlwyOw6cfHHrAyNmYPDi5JYv15U5GoPkV+q6c52QcWh8u/jGzX8/+IFcR5OKKdB6x4fUeXcxJMaF1maw1S5a6So+fSIauk6EiGsBFhFnMZebPmZvUPP/UTvYcKbLZBSliuRa3/tC4pYPm2AS7lmretQ2OpTyLsmSyTjFByeeVcFzWItWV9IgvU5FT4m59QLY1Y9omMza76kWCuGJ6Wo8V1dBQAUzdVdEOleWf+5A4iNnZzLQj/pt53AVhAZyXRXm3nhh8oHWXKVmspSzEJluHYfcNDAs/Rg=="
 	
 	
@@ -26,6 +26,7 @@ ret.area['example assembler'] = {
 	,remoteness_max = 0						-- [default: 0]			Maximal distance in chunks (32x32) from starting edges, 0 for unlimited (starting area settings + maximal remotness)
 	,only_once = false						-- [default: false]		If true, only one copy of this area allowed
 	,max_copies = 0							-- [default: 0]			Negative or zero for unlimited copies, if set to 1 - same as [only_once = true]
+	,nearest_copy = 0						-- [default: 0]			A minimal distance in chunks between area copies.
 	,progressive_remoteness = 5				-- [default: 0]			If not zero, minimal remoteness increased by specified value every time when area placed.
 	,ignore_technologies = true				-- [default: true]		If false, only if all necessary technologies is learned - area can be placed
 	,force = "neutral"						-- [default: "neutral"]	"player", "neutral", "enemy" or custom name to use/create new Force and use it for the building
