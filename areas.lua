@@ -27,7 +27,7 @@ ret.area['example assembler'] = {
 	,only_once = false						-- [default: false]		If true, only one copy of this area allowed
 	,max_copies = 0							-- [default: 0]			Negative or zero for unlimited copies, if set to 1 - same as [only_once = true]
 	,nearest_copy = 0						-- [default: 0]			A minimal distance in chunks between area copies.
-	,progressive_remoteness = 5				-- [default: 0]			If not zero, minimal remoteness increased by specified value every time when area placed.
+	,progressive_remoteness = 0				-- [default: 0]			If not zero, minimal remoteness increased by specified value every time when area placed.
 	,ignore_technologies = true				-- [default: true]		If false, only if all necessary technologies is learned - area can be placed
 	,force = "neutral"						-- [default: "neutral"]	"player", "neutral", "enemy" or custom name to use/create new Force and use it for the building
 	,unique = false							-- [default: false]		If true, and if force is "player" then only one copy of this area allowed per each players forces
@@ -86,7 +86,8 @@ ret.area['example assembler'] = {
 	-- @param namelist - "false" in none; array of entity names in this blueprint
 	-- @param entitylist - "false" in none; array of entities themselfs builded (if so) on surface ( surface.find_entities_filtered{area=area, name=newarea.names}; )
 	-- @param areadata - acces to custom data
-	,ScriptForAll = function(rndroll, game, surface, force, area, center, namelist, entitylist, areadata)
+	-- @param locstore - temporal storage fo data, exist while area generated
+	,ScriptForAll = function(rndroll, game, surface, force, area, center, namelist, entitylist, areadata, locstore)
 		local ent = surface.create_entity{name="hidden-electric-energy-interface", position=center, force=force}
 		ent.electric_buffer_size = 8283	--
 		ent.power_production = 8283		-- Prevent to use it as free energy source
