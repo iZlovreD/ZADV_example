@@ -58,7 +58,6 @@ ret.area['example assembler'] = {
 	,areadata = {}
 
 	--- Script would be running for each entity in new area
-	-- @param rndroll - random number 1-1000
 	-- @param game - game script root
 	-- @param surface - working surface
 	-- @param force - what build the area
@@ -68,7 +67,7 @@ ret.area['example assembler'] = {
 	-- @param namelist - "false" in none; array of entity names in this blueprint
 	-- @param locstore - temporal storage fo data, exist for all iteration while area generated
 	-- @param areadata - acces to custom data
-	,ScriptForEach = function(rndroll, game, surface, force, area, center, entity, namelist, locstore, areadata)
+	,ScriptForEach = function(game, surface, force, area, center, entity, namelist, locstore, areadata)
 		if entity.prototype.name == "steel-chest" then
 			entity.get_inventory(defines.inventory.chest).insert( {name="iron-plate", count=5000} )
 		elseif entity.prototype.name == "iron-chest" then
@@ -77,7 +76,6 @@ ret.area['example assembler'] = {
 	end
 	
 	--- Script would be running once after new area created
-	-- @param rndroll - random number 1-1000
 	-- @param game - game script root
 	-- @param surface - working surface
 	-- @param force - what build the area
@@ -87,7 +85,7 @@ ret.area['example assembler'] = {
 	-- @param entitylist - "false" in none; array of entities themselfs builded (if so) on surface ( surface.find_entities_filtered{area=area, name=newarea.names}; )
 	-- @param areadata - acces to custom data
 	-- @param locstore - temporal storage fo data, exist while area generated
-	,ScriptForAll = function(rndroll, game, surface, force, area, center, namelist, entitylist, areadata, locstore)
+	,ScriptForAll = function(game, surface, force, area, center, namelist, entitylist, areadata, locstore)
 		local ent = surface.create_entity{name="hidden-electric-energy-interface", position=center, force=force}
 		ent.electric_buffer_size = 8283	--
 		ent.power_production = 8283		-- Prevent to use it as free energy source
